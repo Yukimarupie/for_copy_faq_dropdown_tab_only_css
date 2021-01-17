@@ -1,0 +1,108 @@
+    /* 全体の実装はここ */
+    
+    .cp_actab {
+        position: relative;
+        overflow: hidden;
+        width: 60%;
+        color: black;
+        /* (QもAも含む)テキスト全ての色 */
+        /* text-align: center;Q&Aのテキストを左右中央に配置 */
+        margin: 0 auto;
+        /* Q&Aのコンテンツをサイト内の左右中央に配置 */
+    }
+    /* チェックボックスを消去する */
+    
+    .cp_actab input {
+        position: absolute;
+        /* チェックボックスを非表示にした分変な空間が生まれるのを削除 */
+        opacity: 0;
+        /* チェックボックスを非表示 */
+    }
+    /* 質問の実装 */
+    
+    .cp_actab label {
+        font-weight: bold;
+        line-height: 1.6em;
+        display: block;
+        margin: 0;
+        padding: 1em 2em 1em 2.5em;
+        cursor: pointer;
+        /* 質問テキストの上にカーソルを当てると手になる */
+        text-indent: 1em;
+        /* テキストの先頭に数値分の隙間を入れる */
+        border-bottom: 1px solid black;
+        /* テキストの下の下線 */
+        /* background: ; */
+    }
+    /* Qを表示させる。 */
+    
+    .cp_actab label::before {
+        content: 'Q　';
+        font-size: 1.5em;
+    }
+    /* 質問のhover処理実装 */
+    
+    .cp_actab label:hover {
+        transition: all 0.3s;
+        opacity: 70%;
+    }
+    /* 質問右の+ */
+    
+    .cp_actab label::after {
+        content: '+';
+        font-size: 1.7em;
+        font-weight: bold;
+        line-height: 2em;
+        position: absolute;
+        top: 0;
+        /* これがないと下線にくっつく形になっちゃう。縦中央寄せ */
+        right: 0;
+        /* 右寄せ */
+        width: 2em;
+        /* 右寄せから少し左に。 */
+    }
+    /* 答えの実装 */
+    
+    .cp_actab-content {
+        position: relative;
+        overflow: hidden;
+        max-height: 0;
+        /* クリックされてない時は、答えが見えないように0 */
+        padding: 0 0 0 2.5em;
+        text-indent: 4em;
+        /* テキストの先頭に数値分の隙間を入れる。質問と違ってAと一緒に綺麗にずれないので↓ */
+    }
+    /* Aの表示を実装 */
+    
+    .cp_actab-content::before {
+        content: 'A　';
+        position: absolute;
+        margin: 0.4em 0 0 -4.65em;
+        /* ↑でAが答えテキストに重なってしまった分を、-で左に戻す */
+        padding: 0;
+        font-size: 1.5em;
+    }
+    /* 答えのテキストの幅調整 */
+    
+    .cp_actab-content p {
+        margin: 1em 1em 1em 0;
+    }
+    /* 質問がクリックされた時の実装 */
+    /* クリックされたら答えが見える仕様を実装 */
+    
+    .cp_actab input:checked~.cp_actab-content {
+        max-height: 40em;
+    }
+    /* クリックされたら、テキストの色が変わる */
+    
+    .cp_actab input:checked~label {
+        color: #B59965;
+    }
+    /* クリックされたら+が90°回る */
+    
+    .cp_actab input[type=checkbox]:checked+label::after {
+        -webkit-transform: rotateZ(45deg);
+        transform: rotateZ(45deg);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+    }
